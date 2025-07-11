@@ -1,5 +1,9 @@
 package main
 
-func main() {
+import (
+	"github.com/AndreyTsitnarskiy/f2f/cmd"
+)
 
+func main() {
+	cmd.Execute()
 }
