@@ -17,7 +17,6 @@ func ConvertFile(inPath, outPath, toFormat string) error {
 		return err
 	}
 
-	// Определим входной формат по расширению
 	var fromFormat string
 	if strings.HasSuffix(inPath, ".json") {
 		fromFormat = "json"

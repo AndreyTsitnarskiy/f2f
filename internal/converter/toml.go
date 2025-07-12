@@ -7,7 +7,6 @@ import (
 	"github.com/BurntSushi/toml"
 )
 
-// unmarshalTOML парсит TOML-данные в map[string]interface{}
 func unmarshalTOML(data []byte) (interface{}, error) {
 	var temp map[string]interface{}
 	if _, err := toml.Decode(string(data), &temp); err != nil {
@@ -16,7 +15,6 @@ func unmarshalTOML(data []byte) (interface{}, error) {
 	return temp, nil
 }
 
-// marshalTOML сериализует map[string]interface{} в TOML
 func marshalTOML(data map[string]interface{}) ([]byte, error) {
 	var buf bytes.Buffer
 	encoder := toml.NewEncoder(&buf)
