@@ -36,7 +36,7 @@ var convertCmd = &cobra.Command{
 func init() {
 	convertCmd.Flags().StringVar(&inPath, "in", "", "Path to input file")
 	convertCmd.Flags().StringVar(&outPath, "out", "", "Path to output file")
-	convertCmd.Flags().StringVar(&toFormat, "to", "", "Target format: json or yaml")
+	convertCmd.Flags().StringVar(&toFormat, "to", "", "Target format: json, yaml. toml")
 
 	rootCmd.AddCommand(convertCmd)
 }

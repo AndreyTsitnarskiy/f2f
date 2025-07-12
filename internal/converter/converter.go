@@ -12,7 +12,7 @@ import (
 )
 
 func ConvertFile(inPath, outPath, toFormat string) error {
-	data, err := os.ReadFile(inPath)
+	inData, err := os.ReadFile(inPath)
 	if err != nil {
 		return err
 	}
@@ -23,33 +23,43 @@ func ConvertFile(inPath, outPath, toFormat string) error {
 		fromFormat = "json"
 	} else if strings.HasSuffix(inPath, ".yaml") || strings.HasSuffix(inPath, ".yml") {
 		fromFormat = "yaml"
+	} else if strings.HasSuffix(inPath, ".toml") {
+		fromFormat = "toml"
 	} else {
 		return errors.New("unsupported input file format")
 	}
 
-	var intermediate interface{}
+	var intermediateData interface{}
 
 	switch fromFormat {
 	case "json":
-		if err := json.Unmarshal(data, &intermediate); err != nil {
-			return err
-		}
+		err = json.Unmarshal(inData, &intermediateData)
 	case "yaml":
-		if err := yaml.Unmarshal(data, &intermediate); err != nil {
-			return err
-		}
+		err = yaml.Unmarshal(inData, &intermediateData)
+	case "toml":
+		intermediateData, err = unmarshalTOML(inData)
 	default:
-		return fmt.Errorf("unknown input format: %s", fromFormat)
+		return errors.New("unsupported input format")
 	}
 
 	var out []byte
 	switch toFormat {
 	case "json":
-		out, err = json.MarshalIndent(intermediate, "", "  ")
+		out, err = json.MarshalIndent(intermediateData, "", "  ")
 	case "yaml":
-		out, err = yaml.Marshal(intermediate)
+		out, err = yaml.Marshal(intermediateData)
+	case "toml":
+		dataMap, ok := intermediateData.(map[string]interface{})
+		if !ok {
+			return errors.New("cannot encode TOML: unexpected data format")
+		}
+		out, err = marshalTOML(dataMap)
 	default:
 		return fmt.Errorf("unsupported output format: %s", toFormat)
+	}
+
+	if fromFormat == toFormat {
+		return fmt.Errorf("source and target formats are the same (%s). No conversion needed", toFormat)
 	}
 
 	if err != nil {

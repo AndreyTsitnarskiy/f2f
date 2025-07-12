@@ -3,6 +3,7 @@ module github.com/AndreyTsitnarskiy/f2f
 go 1.24.1
 
 require (
+	github.com/BurntSushi/toml v1.5.0
 	github.com/spf13/cobra v1.9.1
 	gopkg.in/yaml.v3 v3.0.1
 )
