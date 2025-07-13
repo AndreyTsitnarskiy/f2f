@@ -1,2 +1,4 @@
 tests/Deployment.yaml
 tests/*
+helps/*
+bin/*

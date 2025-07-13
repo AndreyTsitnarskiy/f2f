@@ -9,8 +9,8 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:   "f2f",
-	Short: "f2f - Format-to-Format converter",
-	Long:  "f2f is a CLI tool to convert files between formats like JSON, YAML, and more.",
+	Short: "f2f tools",
+	Long:  "f2f some tools",
 }
 
 func Execute() {
