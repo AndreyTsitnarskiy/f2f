@@ -1,8 +1,12 @@
+BINARY_NAME=f2f
+
+all: build-linux build-windows
+
 build-linux:
-	GOOS=linux GOARCH=amd64 go build -o f2f-linux
+	GOOS=linux GOARCH=amd64 go build -o dist/$(BINARY_NAME)-linux
 
 build-windows:
-	GOOS=windows GOARCH=amd64 go build -o f2f.exe
+	GOOS=windows GOARCH=amd64 go build -o dist/$(BINARY_NAME)-windows.exe
 
-build-mac:
-	GOOS=darwin GOARCH=amd64 go build -o f2f-mac
+clean:
+	rm -rf dist

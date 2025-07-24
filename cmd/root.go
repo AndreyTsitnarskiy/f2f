@@ -8,9 +8,9 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "f2f",
-	Short: "f2f tools",
-	Long:  "f2f some tools",
+	Use:   "stm",
+	Short: "Some tools manager",
+	Long:  "Some tools that help me in my work in one place",
 }
 
 func Execute() {
